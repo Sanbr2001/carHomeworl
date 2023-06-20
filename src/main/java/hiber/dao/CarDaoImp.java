@@ -32,11 +32,12 @@ public class CarDaoImp implements CarDao {
     @Override
     public User getUserByCarModelAndSeries(String model, int series) {
         Session session = sessionFactory.getCurrentSession();
-        TypedQuery<User> query = session.createQuery("FROM User u WHERE u.car.model = :model AND u.car.series = :series", User.class)
+        TypedQuery<User> query = session.createQuery("SELECT u FROM User u JOIN u.car c WHERE c.model = :model AND c.series = :series", User.class)
                 .setParameter("model", model)
                 .setParameter("series", series);
         return query.getSingleResult();
     }
+
 
 
 
